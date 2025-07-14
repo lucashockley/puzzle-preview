@@ -1,6 +1,24 @@
 <script lang="ts">
+  import SettingsPanel from '$lib/components/SettingsPanel.svelte';
   import RoundedRect from './round/RoundedRect.svelte';
   import RoundedBg from './RoundedBg.svelte';
+  import type { Settings } from '$lib/types';
+
+  let settings: Settings = $state({
+    n: 3,
+    gapRatio: 4,
+    radii: {
+      corner: {
+        outer: 4,
+        inner: 6
+      },
+      edge: {
+        outer: 4,
+        inner: 6
+      },
+      centre: 4
+    }
+  });
 
   let viewBoxSize = $state(256);
   let unit = $derived(viewBoxSize / 2);
@@ -17,7 +35,6 @@
   const rootTwo = Math.sqrt(2);
   const rootThree = Math.sqrt(3);
 
-  let cornerInnerRadius = $state(8);
   let cornerOuterRadius = $state(4);
 
   let edgeOuterRadius = $state(2);
@@ -26,93 +43,7 @@
   let centerRadius = $state(4);
 </script>
 
-<main class="flex flex-col items-center justify-center p-8">
-  <div class="mb-4 rounded-sm border border-gray-800 bg-gray-900 px-6 py-4">
-    <p>Settings</p>
-
-    <div class="mt-4">
-      <div>
-        <label for="n">n:</label>
-        <input bind:value={n} type="number" id="n" name="n" />
-      </div>
-
-      <div>
-        <label for="gap">gap:</label>
-        <input
-          bind:value={gapRatio}
-          type="range"
-          id="gap"
-          name="gap"
-          min="0"
-          max="0.2"
-          step="0.01"
-        />
-      </div>
-
-      <div>
-        <label class="block" for="radius">center radius:</label>
-        <input
-          bind:value={centerRadius}
-          class="w-full"
-          type="range"
-          id="radius"
-          name="radius"
-          min="0"
-          max="20"
-          step="1"
-        />
-      </div>
-
-      <div>
-        <label class="block" for="radius">corner radii:</label>
-        <input
-          bind:value={cornerInnerRadius}
-          class="w-full"
-          type="range"
-          id="radius"
-          name="radius"
-          min="0"
-          max="20"
-          step="1"
-        />
-        <input
-          bind:value={cornerOuterRadius}
-          class="w-full"
-          type="range"
-          id="radius"
-          name="radius"
-          min="0"
-          max="20"
-          step="1"
-        />
-      </div>
-
-      <div>
-        <label class="block" for="radius">edge radii:</label>
-        <input
-          bind:value={edgeInnerRadius}
-          class="w-full"
-          type="range"
-          id="radius"
-          name="radius"
-          min="0"
-          max="20"
-          step="1"
-        />
-        <input
-          bind:value={edgeOuterRadius}
-          class="w-full"
-          type="range"
-          id="radius"
-          name="radius"
-          min="0"
-          max="20"
-          step="1"
-        />
-      </div>
-    </div>
-  </div>
-
+<main class="mx-auto my-8 max-w-screen-lg">
   <svg
     viewBox="0 0 {viewBoxSize} {viewBoxSize}"
     xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +76,7 @@
               radii={{
                 topLeft: cornerOuterRadius,
                 topRight: cornerOuterRadius,
-                bottomRight: cornerInnerRadius,
+                bottomRight: settings.radii.corner.inner,
                 bottomLeft: cornerOuterRadius
               }}
               transform="rotate({i === n - 1
@@ -205,7 +136,7 @@
               radii={{
                 topLeft: cornerOuterRadius,
                 topRight: cornerOuterRadius,
-                bottomRight: cornerInnerRadius,
+                bottomRight: settings.radii.corner.inner,
                 bottomLeft: cornerOuterRadius
               }}
               transform="rotate({i === n - 1
@@ -265,7 +196,7 @@
               radii={{
                 topLeft: cornerOuterRadius,
                 topRight: cornerOuterRadius,
-                bottomRight: cornerInnerRadius,
+                bottomRight: settings.radii.corner.inner,
                 bottomLeft: cornerOuterRadius
               }}
               transform="rotate({i === n - 1
@@ -308,4 +239,6 @@
       {/each}
     </g>
   </svg>
+
+  <SettingsPanel bind:settings />
 </main>
