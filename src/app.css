@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+
+@layer theme {
+}
+
+@layer base {
+  body {
+    @apply bg-gray-900 font-mono text-gray-100;
+  }
+
+  input {
+    @apply rounded-lg border border-gray-900 bg-gray-800 px-2;
+  }
+}
