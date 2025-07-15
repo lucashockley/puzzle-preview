@@ -6,7 +6,7 @@
 
   let settings: Settings = $state({
     n: 3,
-    gapRatio: 4,
+    gapRatio: 0.1,
     radii: {
       corner: {
         outer: 4,
@@ -20,28 +20,18 @@
     }
   });
 
-  let viewBoxSize = $state(256);
-  let unit = $derived(viewBoxSize / 2);
+  let viewBoxSize = 256;
+  let unit = viewBoxSize / 2;
 
-  let gapRatio = $state(0.1);
-
-  let n = $state(4);
-
-  // let pieceSize = $derived(unit / n - ((unit / n) * 0.1) / n);
-  let gap = $derived((unit * gapRatio) / (n + 1));
-  let pieceSize = $derived((unit - gap) / n);
+  let gap = $derived((unit * settings.gapRatio) / (settings.n + 1));
+  let pieceSize = $derived((unit - gap) / settings.n);
   let stickerSize = $derived(pieceSize - gap * 2);
 
   const rootTwo = Math.sqrt(2);
   const rootThree = Math.sqrt(3);
-
-  let cornerOuterRadius = $state(4);
-
-  let edgeOuterRadius = $state(2);
-  let edgeInnerRadius = $state(8);
-
-  let centerRadius = $state(4);
 </script>
+
+<SettingsPanel bind:settings {stickerSize} />
 
 <main class="mx-auto my-8 max-w-screen-lg">
   <svg
@@ -56,50 +46,41 @@
         2}) matrix(0.707 0.409 -0.707 0.409 0 -0.816) scale({rootTwo *
         ((rootThree * unit) / viewBoxSize)}) translate(-{unit / 2} -{unit / 2})"
     >
-      <!-- <rect
-        width={unit}
-        height={unit}
-        fill="blue"
-        class="opacity-50"
-        stroke="green"
-        stroke-width={gap * 2}
-      /> -->
-
-      {#each { length: n }, i}
-        {#each { length: n }, j}
-          {#if (i === 0 && (j === 0 || j === n - 1)) || (j === 0 && i === n - 1) || (i === n - 1 && j == n - 1)}
+      {#each { length: settings.n }, i}
+        {#each { length: settings.n }, j}
+          {#if (i === 0 && (j === 0 || j === settings.n - 1)) || (j === 0 && i === settings.n - 1) || (i === settings.n - 1 && j == settings.n - 1)}
             <RoundedRect
               width={stickerSize}
               height={stickerSize}
               x={i * pieceSize + gap * 2}
               y={j * pieceSize + gap * 2}
               radii={{
-                topLeft: cornerOuterRadius,
-                topRight: cornerOuterRadius,
+                topLeft: settings.radii.corner.outer,
+                topRight: settings.radii.corner.outer,
                 bottomRight: settings.radii.corner.inner,
-                bottomLeft: cornerOuterRadius
+                bottomLeft: settings.radii.corner.outer
               }}
-              transform="rotate({i === n - 1
-                ? j === n - 1
+              transform="rotate({i === settings.n - 1
+                ? j === settings.n - 1
                   ? 180
                   : 90
                 : i === 0 && j === 0
                   ? 0
                   : -90})"
             />
-          {:else if i === 0 || j === 0 || i === n - 1 || j === n - 1}
+          {:else if i === 0 || j === 0 || i === settings.n - 1 || j === settings.n - 1}
             <RoundedRect
               width={stickerSize}
               height={stickerSize}
               x={i * pieceSize + gap * 2}
               y={j * pieceSize + gap * 2}
               radii={{
-                topLeft: edgeOuterRadius,
-                topRight: edgeOuterRadius,
-                bottomRight: edgeInnerRadius,
-                bottomLeft: edgeInnerRadius
+                topLeft: settings.radii.edge.outer,
+                topRight: settings.radii.edge.outer,
+                bottomRight: settings.radii.edge.inner,
+                bottomLeft: settings.radii.edge.inner
               }}
-              transform="rotate({i === 0 ? 270 : j === 0 ? 0 : i === n - 1 ? 90 : 180})"
+              transform="rotate({i === 0 ? 270 : j === 0 ? 0 : i === settings.n - 1 ? 90 : 180})"
             />
           {:else}
             <RoundedRect
@@ -108,10 +89,10 @@
               x={i * pieceSize + gap * 2}
               y={j * pieceSize + gap * 2}
               radii={{
-                topLeft: centerRadius,
-                topRight: centerRadius,
-                bottomRight: centerRadius,
-                bottomLeft: centerRadius
+                topLeft: settings.radii.centre,
+                topRight: settings.radii.centre,
+                bottomRight: settings.radii.centre,
+                bottomLeft: settings.radii.centre
               }}
             />
           {/if}
@@ -123,43 +104,41 @@
       transform="translate({unit} {unit}) rotate(60) matrix(0.70710 0.408248 -0.707107 0.408248 0 -0.816497) scale({rootTwo *
         ((rootThree * unit) / viewBoxSize)}) translate(1 .75)"
     >
-      <!-- <rect width={unit} height={unit} fill="blue" class="opacity-50" stroke-width={gap * 2} /> -->
-
-      {#each { length: n }, i}
-        {#each { length: n }, j}
-          {#if (i === 0 && (j === 0 || j === n - 1)) || (j === 0 && i === n - 1) || (i === n - 1 && j == n - 1)}
+      {#each { length: settings.n }, i}
+        {#each { length: settings.n }, j}
+          {#if (i === 0 && (j === 0 || j === settings.n - 1)) || (j === 0 && i === settings.n - 1) || (i === settings.n - 1 && j == settings.n - 1)}
             <RoundedRect
               width={stickerSize}
               height={stickerSize}
               x={i * pieceSize + gap}
               y={j * pieceSize + gap}
               radii={{
-                topLeft: cornerOuterRadius,
-                topRight: cornerOuterRadius,
+                topLeft: settings.radii.corner.outer,
+                topRight: settings.radii.corner.outer,
                 bottomRight: settings.radii.corner.inner,
-                bottomLeft: cornerOuterRadius
+                bottomLeft: settings.radii.corner.outer
               }}
-              transform="rotate({i === n - 1
-                ? j === n - 1
+              transform="rotate({i === settings.n - 1
+                ? j === settings.n - 1
                   ? 180
                   : 90
                 : i === 0 && j === 0
                   ? 0
                   : -90})"
             />
-          {:else if i === 0 || j === 0 || i === n - 1 || j === n - 1}
+          {:else if i === 0 || j === 0 || i === settings.n - 1 || j === settings.n - 1}
             <RoundedRect
               width={stickerSize}
               height={stickerSize}
               x={i * pieceSize + gap}
               y={j * pieceSize + gap}
               radii={{
-                topLeft: edgeOuterRadius,
-                topRight: edgeOuterRadius,
-                bottomRight: edgeInnerRadius,
-                bottomLeft: edgeInnerRadius
+                topLeft: settings.radii.edge.outer,
+                topRight: settings.radii.edge.outer,
+                bottomRight: settings.radii.edge.inner,
+                bottomLeft: settings.radii.edge.inner
               }}
-              transform="rotate({i === 0 ? 270 : j === 0 ? 0 : i === n - 1 ? 90 : 180})"
+              transform="rotate({i === 0 ? 270 : j === 0 ? 0 : i === settings.n - 1 ? 90 : 180})"
             />
           {:else}
             <RoundedRect
@@ -168,10 +147,10 @@
               x={i * pieceSize + gap}
               y={j * pieceSize + gap}
               radii={{
-                topLeft: centerRadius,
-                topRight: centerRadius,
-                bottomRight: centerRadius,
-                bottomLeft: centerRadius
+                topLeft: settings.radii.centre,
+                topRight: settings.radii.centre,
+                bottomRight: settings.radii.centre,
+                bottomLeft: settings.radii.centre
               }}
             />
           {/if}
@@ -183,43 +162,41 @@
       transform="translate({unit} {unit}) rotate(-60) matrix(0.70710 0.408248 -0.707107 0.408248 0 -0.816497) scale({rootTwo *
         ((rootThree * unit) / viewBoxSize)}) translate(1 1)"
     >
-      <!-- <rect width={unit} height={unit} fill="blue" class="opacity-50" stroke-width={gap * 2} /> -->
-
-      {#each { length: n }, i}
-        {#each { length: n }, j}
-          {#if (i === 0 && (j === 0 || j === n - 1)) || (j === 0 && i === n - 1) || (i === n - 1 && j == n - 1)}
+      {#each { length: settings.n }, i}
+        {#each { length: settings.n }, j}
+          {#if (i === 0 && (j === 0 || j === settings.n - 1)) || (j === 0 && i === settings.n - 1) || (i === settings.n - 1 && j == settings.n - 1)}
             <RoundedRect
               width={stickerSize}
               height={stickerSize}
               x={i * pieceSize + gap}
               y={j * pieceSize + gap}
               radii={{
-                topLeft: cornerOuterRadius,
-                topRight: cornerOuterRadius,
+                topLeft: settings.radii.corner.outer,
+                topRight: settings.radii.corner.outer,
                 bottomRight: settings.radii.corner.inner,
-                bottomLeft: cornerOuterRadius
+                bottomLeft: settings.radii.corner.outer
               }}
-              transform="rotate({i === n - 1
-                ? j === n - 1
+              transform="rotate({i === settings.n - 1
+                ? j === settings.n - 1
                   ? 180
                   : 90
                 : i === 0 && j === 0
                   ? 0
                   : -90})"
             />
-          {:else if i === 0 || j === 0 || i === n - 1 || j === n - 1}
+          {:else if i === 0 || j === 0 || i === settings.n - 1 || j === settings.n - 1}
             <RoundedRect
               width={stickerSize}
               height={stickerSize}
               x={i * pieceSize + gap}
               y={j * pieceSize + gap}
               radii={{
-                topLeft: edgeOuterRadius,
-                topRight: edgeOuterRadius,
-                bottomRight: edgeInnerRadius,
-                bottomLeft: edgeInnerRadius
+                topLeft: settings.radii.edge.outer,
+                topRight: settings.radii.edge.outer,
+                bottomRight: settings.radii.edge.inner,
+                bottomLeft: settings.radii.edge.inner
               }}
-              transform="rotate({i === 0 ? 270 : j === 0 ? 0 : i === n - 1 ? 90 : 180})"
+              transform="rotate({i === 0 ? 270 : j === 0 ? 0 : i === settings.n - 1 ? 90 : 180})"
             />
           {:else}
             <RoundedRect
@@ -228,10 +205,10 @@
               x={i * pieceSize + gap}
               y={j * pieceSize + gap}
               radii={{
-                topLeft: centerRadius,
-                topRight: centerRadius,
-                bottomRight: centerRadius,
-                bottomLeft: centerRadius
+                topLeft: settings.radii.centre,
+                topRight: settings.radii.centre,
+                bottomRight: settings.radii.centre,
+                bottomLeft: settings.radii.centre
               }}
             />
           {/if}
@@ -239,6 +216,4 @@
       {/each}
     </g>
   </svg>
-
-  <SettingsPanel bind:settings />
 </main>

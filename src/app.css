@@ -1,7 +1,10 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/inter';
 @plugin "@iconify/tailwind4";
 
 @theme {
+  --font-sans: 'Inter Variable', sans-serif;
+
   --color-gray-50: oklch(0.985 0 0);
   --color-gray-100: oklch(0.97 0 0);
   --color-gray-200: oklch(0.922 0 0);
@@ -17,7 +20,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-100 font-mono text-gray-950;
+    @apply bg-gray-100 text-sm text-gray-950 lowercase;
   }
 
   input {

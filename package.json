@@ -42,6 +42,7 @@
 		]
 	},
 	"dependencies": {
+		"@fontsource-variable/inter": "^5.2.6",
 		"svg-round-corners": "^0.4.3"
 	}
 }
