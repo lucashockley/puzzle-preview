@@ -19,6 +19,11 @@
 }
 
 @layer base {
+  html,
+  body {
+    @apply h-full;
+  }
+
   body {
     @apply bg-gray-100 text-sm text-gray-950 lowercase;
   }

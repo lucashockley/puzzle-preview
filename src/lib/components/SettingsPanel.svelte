@@ -20,7 +20,7 @@
   <div>
     <div class="my-4 flex items-start gap-4">
       <label for="n" class="min-w-16 text-sm">n</label>
-      <NumberInput bind:value={settings.n} id="n" flip />
+      <NumberInput bind:value={settings.n} id="n" flip step={1} min={1} />
     </div>
   </div>
 
@@ -29,7 +29,14 @@
   <div>
     <div class="my-4 flex items-start gap-4">
       <label for="gap-ratio" class="min-w-16 text-sm">gap ratio</label>
-      <NumberInput bind:value={settings.gapRatio} id="gap-ratio" flip />
+      <NumberInput
+        bind:value={settings.gapRatio}
+        id="gap-ratio"
+        flip
+        step={0.001}
+        min={0}
+        max={0.2}
+      />
     </div>
   </div>
 
@@ -43,6 +50,7 @@
         id="radii-centre"
         min="0"
         max={stickerSize / 2}
+        step={0.1}
         flip
       />
     </div>
@@ -56,7 +64,14 @@
             for="radii-edge-outer-1"
             class="icon-[radix-icons--corner-top-left] cursor-[inherit]"
           ></label>
-          <NumberInput bind:value={settings.radii.edge.outer} id="radii-edge-outer-1" flip />
+          <NumberInput
+            bind:value={settings.radii.edge.outer}
+            id="radii-edge-outer-1"
+            flip
+            min="0"
+            max={stickerSize / 2}
+            step={0.1}
+          />
         </div>
 
         <div class="flex items-center gap-1.5">
@@ -64,7 +79,13 @@
             for="radii-edge-outer-2"
             class="icon-[radix-icons--corner-top-right] cursor-[inherit]"
           ></label>
-          <NumberInput bind:value={settings.radii.edge.outer} id="radii-edge-outer-2" />
+          <NumberInput
+            bind:value={settings.radii.edge.outer}
+            id="radii-edge-outer-2"
+            min="0"
+            max={stickerSize / 2}
+            step={0.1}
+          />
         </div>
 
         <div class="flex flex-row-reverse items-center gap-1.5">
@@ -72,7 +93,14 @@
             for="radii-edge-inner-1"
             class="icon-[radix-icons--corner-bottom-left] cursor-[inherit]"
           ></label>
-          <NumberInput bind:value={settings.radii.edge.inner} id="radii-edge-inner-1" flip />
+          <NumberInput
+            bind:value={settings.radii.edge.inner}
+            id="radii-edge-inner-1"
+            flip
+            min="0"
+            max={stickerSize / 2}
+            step={0.1}
+          />
         </div>
 
         <div class="flex items-center gap-1.5">
@@ -80,7 +108,13 @@
             for="radii-edge-inner-2"
             class="icon-[radix-icons--corner-bottom-right] cursor-[inherit]"
           ></label>
-          <NumberInput bind:value={settings.radii.edge.inner} id="radii-edge-inner-2" />
+          <NumberInput
+            bind:value={settings.radii.edge.inner}
+            id="radii-edge-inner-2"
+            min="0"
+            max={stickerSize / 2}
+            step={0.1}
+          />
         </div>
       </div>
     </div>

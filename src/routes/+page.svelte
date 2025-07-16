@@ -33,12 +33,8 @@
 
 <SettingsPanel bind:settings {stickerSize} />
 
-<main class="mx-auto my-8 max-w-screen-lg">
-  <svg
-    viewBox="0 0 {viewBoxSize} {viewBoxSize}"
-    xmlns="http://www.w3.org/2000/svg"
-    class="mt-24 w-128"
-  >
+<main class="flex h-full items-center justify-center">
+  <svg viewBox="0 0 {viewBoxSize} {viewBoxSize}" xmlns="http://www.w3.org/2000/svg" class="w-128">
     <RoundedBg />
 
     <g

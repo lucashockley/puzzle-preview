@@ -23,8 +23,13 @@
   function onpointermove(e: MouseEvent) {
     if (!dragging || initialX === null || initialValue === null) return;
 
-    const delta = (e.pageX - initialX) * 0.05;
-    const newValue = Math.round((initialValue + delta + Number.EPSILON) * 10) / 10;
+    const step = typeof props.step === 'string' ? parseFloat(props.step) : props.step;
+
+    const sensitivity = step ? step / 5 : 0.05;
+    const delta = (e.pageX - initialX) * sensitivity;
+
+    const newValue =
+      Math.round((initialValue + delta + Number.EPSILON) * (1 / (step ?? 1))) / (1 / (step ?? 1));
 
     const max = typeof props.max === 'string' ? parseFloat(props.max) : props.max;
     const min = typeof props.min === 'string' ? parseFloat(props.min) : props.min;
@@ -52,7 +57,9 @@
 <input
   type="number"
   bind:value
-  class="{flip ? 'pr-2 pl-0 text-right' : 'pr-0'} w-14 cursor-[inherit] py-0.25 pr-0 text-sm"
+  class="{flip
+    ? 'pr-2 pl-0 text-right'
+    : 'pr-0'} w-14 cursor-[inherit] py-0.25 pr-0 text-sm hover:cursor-ew-resize"
   {...props}
   {onpointerdown}
 />
