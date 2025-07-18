@@ -8,9 +8,10 @@
     stickerSize: number;
     pieceSize: number;
     gap: number;
+    colour: string;
   }
 
-  const { settings, stickerSize, pieceSize, gap }: Props = $props();
+  const { settings, stickerSize, pieceSize, gap, colour }: Props = $props();
 
   type Radii = ComponentProps<typeof RoundedRect>['radii'];
 
@@ -41,6 +42,7 @@
     y={j * pieceSize + gap}
     {radii}
     {transform}
+    fill={colour}
   />
 {/snippet}
 

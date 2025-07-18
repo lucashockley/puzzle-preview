@@ -41,15 +41,15 @@
       transform="translate(0 {gap + 0.75}) translate({unit} {unit /
         2}) {isometricTransform} translate(-{unit / 2} -{unit / 2})"
     >
-      <Face {settings} {stickerSize} {pieceSize} {gap} />
+      <Face {settings} {stickerSize} {pieceSize} {gap} colour="white" />
     </g>
 
     <g transform="translate({unit} {unit}) rotate(60) {isometricTransform} translate(1 .75)">
-      <Face {settings} {stickerSize} {pieceSize} {gap} />
+      <Face {settings} {stickerSize} {pieceSize} {gap} colour="red" />
     </g>
 
     <g transform="translate({unit} {unit}) rotate(-60) {isometricTransform} translate(1 1)">
-      <Face {settings} {stickerSize} {pieceSize} {gap} />
+      <Face {settings} {stickerSize} {pieceSize} {gap} colour="var(--color-sky-500)" />
     </g>
   </svg>
 </main>
