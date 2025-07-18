@@ -1,5 +1,5 @@
 <script lang="ts">
-  let viewBoxSize = $state(256);
+  const { viewBoxSize } = $props();
   let unit = $derived(viewBoxSize / 2);
 
   const r = $state(8);
