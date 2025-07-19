@@ -22,7 +22,7 @@
     if (!(e.target instanceof HTMLElement)) return;
 
     await e.target.requestPointerLock({
-      unadjustedMovement: true
+      unadjustedMovement: true,
     });
 
     dragging = true;
@@ -93,7 +93,7 @@
     bind:value
     class="{flip
       ? 'pr-2 pl-0 text-right'
-      : 'pr-0'} w-14 cursor-[inherit] py-0.25 pr-0 text-base hover:cursor-ew-resize sm:text-sm"
+      : 'pr-0'} w-14 cursor-[inherit] rounded-lg border border-gray-200 bg-gray-100 px-2 py-0.25 pr-0 text-base transition-colors duration-150 outline-none hover:cursor-ew-resize hover:border-gray-400 focus:border-blue-500 sm:text-sm"
     {...props}
     {onmousedown}
   />
