@@ -18,7 +18,7 @@
   let inputLeft = $state(0);
   let inputTop = $state(0);
 
-  async function onpointerdown(e: MouseEvent) {
+  async function onmousedown(e: MouseEvent) {
     if (!(e.target instanceof HTMLElement)) return;
 
     await e.target.requestPointerLock({
@@ -51,8 +51,8 @@
     relativeX += e.movementX;
     relativeY += e.movementY;
 
-    const step = typeof props.step === 'string' ? parseFloat(props.step) : props.step;
-    const sensitivity = step ? step / 5 : 0.05;
+    const step = (typeof props.step === 'string' ? parseFloat(props.step) : props.step) ?? 1;
+    const sensitivity = Math.sqrt(step) / 100;
     const delta = (relativeX - e.offsetX) * sensitivity;
 
     const newValue =
@@ -70,7 +70,7 @@
     }
   }
 
-  function onpointerup() {
+  function onmouseup() {
     if (dragging) {
       dragging = false;
       document.exitPointerLock();
@@ -85,7 +85,7 @@
   });
 </script>
 
-<svelte:body {onpointermove} {onpointerup} bind:clientWidth bind:clientHeight />
+<svelte:body {onpointermove} {onmouseup} bind:clientWidth bind:clientHeight />
 
 <div class="relative">
   <input
@@ -95,14 +95,14 @@
       ? 'pr-2 pl-0 text-right'
       : 'pr-0'} w-14 cursor-[inherit] py-0.25 pr-0 text-base hover:cursor-ew-resize sm:text-sm"
     {...props}
-    {onpointerdown}
+    {onmousedown}
   />
 
   {#if dragging}
     {@const safeWidth = clientWidth - 10}
     {@const safeHeight = clientHeight - 10}
     <span
-      class="icon-[uil--arrows-resize-h] absolute -translate-x-1/2 -translate-y-1/2 text-lg"
+      class="icon-[uil--arrows-resize-h] absolute z-10 -translate-x-1/2 -translate-y-1/2 text-lg"
       style:top="{((relativeY + inputTop + safeHeight) % safeHeight) - inputTop}px"
       style:left="{((relativeX + inputLeft + safeWidth) % safeWidth) - inputLeft}px"
     ></span>

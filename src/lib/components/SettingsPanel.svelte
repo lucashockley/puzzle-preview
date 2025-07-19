@@ -15,7 +15,7 @@
   <div>
     <div class="my-4 flex items-start gap-4">
       <label for="n" class="min-w-16 text-sm">n</label>
-      <NumberInput bind:value={settings.n} id="n" flip step={1} min={1} />
+      <NumberInput bind:value={settings.n} id="n" flip min={1} />
     </div>
   </div>
 
@@ -123,7 +123,14 @@
             for="radii-corner-outer-1"
             class="icon-[radix-icons--corner-top-left] cursor-[inherit]"
           ></label>
-          <NumberInput bind:value={settings.radii.corner.outer} id="radii-corner-outer-1" flip />
+          <NumberInput
+            bind:value={settings.radii.corner.outer}
+            id="radii-corner-outer-1"
+            flip
+            min="0"
+            max={stickerSize / 2}
+            step={0.1}
+          />
         </div>
 
         <div class="flex items-center gap-1.5">
@@ -131,7 +138,13 @@
             for="radii-corner-outer-2"
             class="icon-[radix-icons--corner-top-right] cursor-[inherit]"
           ></label>
-          <NumberInput bind:value={settings.radii.corner.outer} id="radii-corner-outer-2" />
+          <NumberInput
+            bind:value={settings.radii.corner.outer}
+            id="radii-corner-outer-2"
+            min="0"
+            max={stickerSize / 2}
+            step={0.1}
+          />
         </div>
 
         <div class="flex flex-row-reverse items-center gap-1.5">
@@ -139,7 +152,14 @@
             for="radii-corner-outer-3"
             class="icon-[radix-icons--corner-bottom-left] cursor-[inherit]"
           ></label>
-          <NumberInput bind:value={settings.radii.corner.outer} id="radii-corner-outer-3" flip />
+          <NumberInput
+            bind:value={settings.radii.corner.outer}
+            id="radii-corner-outer-3"
+            flip
+            min="0"
+            max={stickerSize / 2}
+            step={0.1}
+          />
         </div>
 
         <div class="flex items-center gap-1.5">
@@ -147,7 +167,13 @@
             for="radii-corner-inner"
             class="icon-[radix-icons--corner-bottom-right] cursor-[inherit]"
           ></label>
-          <NumberInput bind:value={settings.radii.corner.inner} id="radii-corner-inner" />
+          <NumberInput
+            bind:value={settings.radii.corner.inner}
+            id="radii-corner-inner"
+            min="0"
+            max={stickerSize / 2}
+            step={0.1}
+          />
         </div>
       </div>
     </div>
