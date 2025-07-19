@@ -7,17 +7,17 @@ export class PreviewState {
 
   settings: Settings = $state({
     n: 3,
-    gapRatio: 0.1,
+    gapRatio: 0.12,
     radii: {
       corner: {
-        outer: 4,
-        inner: 6
+        outer: 5,
+        inner: 4
       },
       edge: {
-        outer: 4,
-        inner: 6
+        outer: 5,
+        inner: 8
       },
-      centre: 4
+      centre: 10
     }
   });
 
