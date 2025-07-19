@@ -51,11 +51,11 @@
           topLeft: settings.radii.corner.outer,
           topRight: settings.radii.corner.outer,
           bottomRight: settings.radii.corner.inner,
-          bottomLeft: settings.radii.corner.outer
+          bottomLeft: settings.radii.corner.outer,
         },
         `rotate(${
           i === settings.n - 1 ? (j === settings.n - 1 ? 180 : 90) : i === 0 && j === 0 ? 0 : -90
-        })`
+        })`,
       )}
     {:else if pieceType === 'edge'}
       {@render sticker(
@@ -65,16 +65,16 @@
           topLeft: settings.radii.edge.outer,
           topRight: settings.radii.edge.outer,
           bottomRight: settings.radii.edge.inner,
-          bottomLeft: settings.radii.edge.inner
+          bottomLeft: settings.radii.edge.inner,
         },
-        `rotate(${i === 0 ? 270 : j === 0 ? 0 : i === settings.n - 1 ? 90 : 180})`
+        `rotate(${i === 0 ? 270 : j === 0 ? 0 : i === settings.n - 1 ? 90 : 180})`,
       )}
     {:else}
       {@render sticker(i, j, {
         topLeft: settings.radii.centre,
         topRight: settings.radii.centre,
         bottomRight: settings.radii.centre,
-        bottomLeft: settings.radii.centre
+        bottomLeft: settings.radii.centre,
       })}
     {/if}
   {/each}

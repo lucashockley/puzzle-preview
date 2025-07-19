@@ -5,6 +5,6 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [tailwindcss(), sveltekit()],
   optimizeDeps: {
-    exclude: ['svg-round-corners']
-  }
+    exclude: ['svg-round-corners'],
+  },
 });

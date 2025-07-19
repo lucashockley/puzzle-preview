@@ -11,14 +11,14 @@ export class PreviewState {
     radii: {
       corner: {
         outer: 5,
-        inner: 4
+        inner: 4,
       },
       edge: {
         outer: 5,
-        inner: 8
+        inner: 8,
       },
-      centre: 10
-    }
+      centre: 10,
+    },
   });
 
   gap = $derived((this.unit * this.settings.gapRatio) / (this.settings.n + 1));
