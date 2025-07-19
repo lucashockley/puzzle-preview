@@ -9,24 +9,51 @@
   let { value = $bindable(), flip = false, ...props }: Props = $props();
 
   let dragging = $state(false);
-  let initialX: number | null = null;
+  let relativeX = $state(0);
+  let relativeY = $state(0);
   let initialValue: number | null = null;
 
-  const sensitivity = 0.5;
+  let clientWidth = $state(0);
+  let clientHeight = $state(0);
+  let inputLeft = $state(0);
+  let inputTop = $state(0);
 
-  function onpointerdown(e: MouseEvent) {
+  async function onpointerdown(e: MouseEvent) {
+    if (!(e.target instanceof HTMLElement)) return;
+
+    await e.target.requestPointerLock({
+      unadjustedMovement: true
+    });
+
     dragging = true;
-    initialX = e.pageX;
     initialValue = value;
+    relativeX = e.offsetX;
+    relativeY = e.offsetY;
+
+    const rect = e.target.getBoundingClientRect();
+    inputLeft = rect.left;
+    inputTop = rect.top;
+
+    document.addEventListener('pointerlockchange', onPointerLockChange);
+  }
+
+  function onPointerLockChange() {
+    dragging = document.pointerLockElement === document.activeElement;
+    // remove event listener if unlocked
+    if (!dragging) {
+      document.removeEventListener('pointerlockchange', onPointerLockChange);
+    }
   }
 
   function onpointermove(e: MouseEvent) {
-    if (!dragging || initialX === null || initialValue === null) return;
+    if (!dragging || initialValue === null) return;
+
+    relativeX += e.movementX;
+    relativeY += e.movementY;
 
     const step = typeof props.step === 'string' ? parseFloat(props.step) : props.step;
-
     const sensitivity = step ? step / 5 : 0.05;
-    const delta = (e.pageX - initialX) * sensitivity;
+    const delta = (relativeX - e.offsetX) * sensitivity;
 
     const newValue =
       Math.round((initialValue + delta + Number.EPSILON) * (1 / (step ?? 1))) / (1 / (step ?? 1));
@@ -44,7 +71,13 @@
   }
 
   function onpointerup() {
-    dragging = false;
+    if (dragging) {
+      dragging = false;
+      document.exitPointerLock();
+      document.removeEventListener('pointerlockchange', onPointerLockChange);
+      relativeX = 0;
+      relativeY = 0;
+    }
   }
 
   $effect(() => {
@@ -52,17 +85,29 @@
   });
 </script>
 
-<svelte:body {onpointermove} {onpointerup} />
+<svelte:body {onpointermove} {onpointerup} bind:clientWidth bind:clientHeight />
 
-<input
-  type="number"
-  bind:value
-  class="{flip
-    ? 'pr-2 pl-0 text-right'
-    : 'pr-0'} w-14 cursor-[inherit] py-0.25 pr-0 text-base hover:cursor-ew-resize sm:text-sm"
-  {...props}
-  {onpointerdown}
-/>
+<div class="relative">
+  <input
+    type="number"
+    bind:value
+    class="{flip
+      ? 'pr-2 pl-0 text-right'
+      : 'pr-0'} w-14 cursor-[inherit] py-0.25 pr-0 text-base hover:cursor-ew-resize sm:text-sm"
+    {...props}
+    {onpointerdown}
+  />
+
+  {#if dragging}
+    {@const safeWidth = clientWidth - 10}
+    {@const safeHeight = clientHeight - 10}
+    <span
+      class="icon-[uil--arrows-resize-h] absolute -translate-x-1/2 -translate-y-1/2 text-lg"
+      style:top="{((relativeY + inputTop + safeHeight) % safeHeight) - inputTop}px"
+      style:left="{((relativeX + inputLeft + safeWidth) % safeWidth) - inputLeft}px"
+    ></span>
+  {/if}
+</div>
 
 <style lang="postcss">
   input::-webkit-inner-spin-button {

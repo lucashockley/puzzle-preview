@@ -30,8 +30,7 @@
     v -{height - (radii.topLeft + radii.bottomLeft)}
     a {radii.topLeft} {radii.topLeft} 0 0 1 {radii.topLeft} -{radii.topLeft}
     z"
-  fill="red"
-  {...props}
   class="origin-center"
   style:transform-box="fill-box"
+  {...props}
 />
