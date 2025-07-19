@@ -59,7 +59,7 @@
   bind:value
   class="{flip
     ? 'pr-2 pl-0 text-right'
-    : 'pr-0'} w-14 cursor-[inherit] py-0.25 pr-0 text-sm hover:cursor-ew-resize"
+    : 'pr-0'} w-14 cursor-[inherit] py-0.25 pr-0 text-base hover:cursor-ew-resize sm:text-sm"
   {...props}
   {onpointerdown}
 />

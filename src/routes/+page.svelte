@@ -9,7 +9,7 @@
 
 <SettingsPanel />
 
-<main class="flex h-full flex-col items-center justify-center gap-y-16">
+<main class="my-8 flex grow flex-col items-center justify-center gap-y-16 pb-12">
   <div class="flex w-full max-w-256">
     <Preview />
   </div>

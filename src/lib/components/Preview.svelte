@@ -30,7 +30,11 @@
   </g>
 </svg>
 
-<svg viewBox="0 0 {viewBoxSize} {viewBoxSize}" xmlns="http://www.w3.org/2000/svg">
+<svg
+  viewBox="0 0 {viewBoxSize} {viewBoxSize}"
+  xmlns="http://www.w3.org/2000/svg"
+  class="hidden md:block"
+>
   <RoundedBg {viewBoxSize} />
 
   <g
