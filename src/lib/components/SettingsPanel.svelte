@@ -1,13 +1,8 @@
 <script lang="ts">
-  import type { Settings } from '$lib/types';
+  import { getPreviewState } from '$lib/state/previewState.svelte';
   import NumberInput from './NumberInput.svelte';
 
-  interface Props {
-    settings: Settings;
-    stickerSize: number;
-  }
-
-  const { settings = $bindable(), stickerSize }: Props = $props();
+  const { settings, stickerSize } = $derived(getPreviewState());
 </script>
 
 <div

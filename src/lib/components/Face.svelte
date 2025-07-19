@@ -1,17 +1,11 @@
 <script lang="ts">
-  import type { Settings } from '$lib/types';
   import type { ComponentProps } from 'svelte';
   import RoundedRect from './RoundedRect.svelte';
+  import { getPreviewState } from '$lib/state/previewState.svelte';
 
-  interface Props {
-    settings: Settings;
-    stickerSize: number;
-    pieceSize: number;
-    gap: number;
-    colour: string;
-  }
+  const { colour }: { colour: string } = $props();
 
-  const { settings, stickerSize, pieceSize, gap, colour }: Props = $props();
+  const { settings, stickerSize, pieceSize, gap } = $derived(getPreviewState());
 
   type Radii = ComponentProps<typeof RoundedRect>['radii'];
 
