@@ -11,9 +11,6 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.2.6
         version: 5.2.6
-      svg-round-corners:
-        specifier: ^0.4.3
-        version: 0.4.3
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.5
@@ -1381,9 +1378,6 @@ packages:
     resolution: {integrity: sha512-KuRvI82rhh0RMz1EKsUJD96gZyHJ+h2+8zrwO8iqE/p/CmcNKvIItDUAeUePhuCDgtegDJmF8IKThbHIfmTgTA==}
     engines: {node: '>=18'}
 
-  svg-round-corners@0.4.3:
-    resolution: {integrity: sha512-9zxcdLa9Bh2Bddxa760wSzspWLJ1nTRMKIsVH6MjNm8QssbZGbmY0pOnjwrp/cST+mfod2l3lpbuKFe+c3wHjw==}
-
   tailwindcss@4.1.11:
     resolution: {integrity: sha512-2E9TBm6MDD/xKYe+dvJZAmg3yxIEDNRc0jwlNyDg/4Fil2QcSLjFKGVff0lAf1jjeaArlG/M75Ey/EYr/OJtBA==}
 
@@ -2653,8 +2647,6 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.17
       zimmerframe: 1.1.2
-
-  svg-round-corners@0.4.3: {}
 
   tailwindcss@4.1.11: {}
 
