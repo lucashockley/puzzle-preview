@@ -7,6 +7,10 @@
   setPreviewState();
 </script>
 
+<svelte:head>
+  <title>puzzle preview</title>
+</svelte:head>
+
 <SettingsPanel />
 
 <main class="my-8 flex grow flex-col items-center justify-center gap-y-16 pb-12">
