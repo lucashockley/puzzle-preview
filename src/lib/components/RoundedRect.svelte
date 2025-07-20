@@ -15,20 +15,30 @@
   } & SVGAttributes<SVGPathElement>;
 
   const { x, y, radii, width, height, ...props }: Props = $props();
+
+  function clamp(radius: number): number {
+    return Math.min(radius, width / 2);
+  }
 </script>
 
-<!-- <rect {x} {y} width={w} height={h} /> -->
-
 <path
-  d="M {x + radii.topLeft} {y}
-    h {width - (radii.topLeft + radii.topRight)}
-    a {radii.topRight} {radii.topRight} 0 0 1 {radii.topRight} {radii.topRight}
-    v {height - (radii.topRight + radii.bottomRight)}
-    a {radii.bottomRight} {radii.bottomRight} 0 0 1 -{radii.bottomRight} {radii.bottomRight}
-    h -{width - (radii.bottomLeft + radii.bottomRight)}
-    a {radii.bottomLeft} {radii.bottomLeft} 0 0 1 -{radii.bottomLeft} -{radii.bottomLeft}
-    v -{height - (radii.topLeft + radii.bottomLeft)}
-    a {radii.topLeft} {radii.topLeft} 0 0 1 {radii.topLeft} -{radii.topLeft}
+  d="M {x + clamp(radii.topLeft)} {y}
+    h {width - (clamp(radii.topLeft) + clamp(radii.topRight))}
+    a {clamp(radii.topRight)} {clamp(radii.topRight)} 0 0 1 {clamp(radii.topRight)} {clamp(
+    radii.topRight,
+  )}
+    v {height - (clamp(radii.topRight) + clamp(radii.bottomRight))}
+    a {clamp(radii.bottomRight)} {clamp(radii.bottomRight)} 0 0 1 -{clamp(
+    radii.bottomRight,
+  )} {clamp(radii.bottomRight)}
+    h -{width - (clamp(radii.bottomLeft) + clamp(radii.bottomRight))}
+    a {clamp(radii.bottomLeft)} {clamp(radii.bottomLeft)} 0 0 1 -{clamp(radii.bottomLeft)} -{clamp(
+    radii.bottomLeft,
+  )}
+    v -{height - (clamp(radii.topLeft) + clamp(radii.bottomLeft))}
+    a {clamp(radii.topLeft)} {clamp(radii.topLeft)} 0 0 1 {clamp(radii.topLeft)} -{clamp(
+    radii.topLeft,
+  )}
     z"
   class="origin-center"
   style:transform-box="fill-box"
