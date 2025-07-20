@@ -25,6 +25,6 @@
 
 <a href="https://github.com/lucashockley/puzzle-preview" aria-label="GitHub" rel="noopener">
   <span
-    class="icon-[mdi--github] absolute right-5 bottom-5 text-2xl text-gray-400 duration-150 hover:text-gray-600"
+    class="icon-[mdi--github] fixed right-5 bottom-5 text-2xl text-gray-400 duration-150 hover:text-gray-600"
   ></span></a
 >
