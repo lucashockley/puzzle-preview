@@ -23,8 +23,11 @@
   </div>
 </main>
 
-<a href="https://github.com/lucashockley/puzzle-preview" aria-label="GitHub" rel="noopener">
-  <span
-    class="icon-[mdi--github] fixed right-5 bottom-5 text-2xl text-gray-400 duration-150 hover:text-gray-600"
-  ></span></a
+<a
+  href="https://github.com/lucashockley/puzzle-preview"
+  class="fixed right-5 bottom-5 flex items-center justify-center rounded-full border border-gray-200 bg-white p-2 text-gray-400 duration-150 hover:border-gray-300 hover:text-gray-500"
+  aria-label="GitHub"
+  rel="noopener"
+>
+  <span class="icon-[mdi--github] text-2xl"></span></a
 >

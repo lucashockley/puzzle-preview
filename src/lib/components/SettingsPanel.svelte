@@ -6,7 +6,7 @@
 </script>
 
 <div
-  class="top-5 left-5 rounded-xl border-1 border-gray-600/20 bg-white/80 px-5 py-4 pb-5 text-gray-600 backdrop-blur-lg md:absolute md:w-fit"
+  class="top-5 left-5 z-10 rounded-xl border-1 border-gray-600/20 bg-white/80 px-5 py-4 pb-5 text-gray-600 backdrop-blur-lg md:absolute md:w-fit"
 >
   <p class="mb-4 font-medium text-gray-900">Settings</p>
 
